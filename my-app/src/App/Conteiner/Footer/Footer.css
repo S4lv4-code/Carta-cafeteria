@@ -1,0 +1,10 @@
+footer{
+    padding: 10px;
+    text-align: center;
+}
+
+.a-footer, .p-footer{
+    font-size: small;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+}

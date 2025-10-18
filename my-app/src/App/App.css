@@ -1,0 +1,28 @@
+body {
+  background-image: url(https://cdn.freecodecamp.org/curriculum/css-cafe/beans.jpg);
+}
+
+.contenedor{
+  background-color: burlywood;
+  width: 30vw;
+  height: 82vh;
+  margin: auto;
+}
+
+@media (max-width: 900px) {
+  .contenedor{
+    height: 86vh;
+  }
+}
+
+@media (max-width: 750px) {
+  .contenedor{
+    height: 90vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .contenedor{
+    height: 98vh;
+  }
+}

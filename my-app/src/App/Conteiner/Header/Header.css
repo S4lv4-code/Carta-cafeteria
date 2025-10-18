@@ -1,0 +1,15 @@
+.h1-header{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+.h2-header{
+    text-align: center;
+    font-weight: lighter;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: medium;
+}

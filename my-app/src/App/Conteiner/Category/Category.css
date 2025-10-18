@@ -1,0 +1,25 @@
+.main-category{
+    justify-content: center;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.h2-category{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
+    margin-bottom: 0px;
+    margin-top: 3%;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2.5%;
+}
+
+ul{
+    padding: 0px;
+    margin-bottom: 0px;
+}

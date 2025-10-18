@@ -1,0 +1,12 @@
+
+.price, .name {
+    display: inline-block;
+    width: 50%;
+    margin: 0px;
+    margin-top: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.price{
+    text-align: right;
+}
