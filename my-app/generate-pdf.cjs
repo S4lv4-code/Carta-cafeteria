@@ -108,8 +108,8 @@ addComponent(
 doc.fontSize(16).text('9. Repositorio GitHub', { underline: true });
 doc.moveDown(0.5);
 doc.fontSize(12).fillColor('blue').text(
-  'https://github.com/tuusuario/carta-react',
-  { link: 'https://github.com/tuusuario/carta-react', underline: true }
+  'https://github.com/S4lv4-code/Carta-cafeteria',
+  { link: 'https://github.com/S4lv4-code/Carta-cafeteria', underline: true }
 );
 
 doc.end();
