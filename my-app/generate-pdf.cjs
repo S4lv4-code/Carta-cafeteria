@@ -57,18 +57,18 @@ const productPath = path.join(categoryPath, 'Product');
 addComponent(
   '2. Componente App.jsx',
   path.join(baseSrc, 'App.jsx'),
-  'Componente principal que contiene la estructura global y renderiza los demás componentes.'+
-  'Se crea un JSON en el componente padre App donde estarán los datos de la carta sin repetición'+
+  'Componente principal que contiene la estructura global y renderiza los demás componentes. '+
+  'Se crea un JSON en el componente padre App donde estarán los datos de la carta sin repetición. '+
   'A Conteiner se le insterta como propiedad "categorias"'
 );
 
 addComponent(
   '3. Componente Conteiner.jsx',
   path.join(containerPath, 'Conteiner.jsx'),
-  'Organiza las categorías y productos dentro de la carta, actuando como contenedor principal.'+
-  'Al objeto Category se le inserta las propiedades category, imagen y product.'+
-  'Se realiza una función flecha para mapear Category con sus respetivas propiedades'+
-  'Como parametro se le inserta categorias'
+  'Organiza las categorías y productos dentro de la carta, actuando como contenedor principal. '+
+  'Al objeto Category se le inserta las propiedades category, imagen y product. '+
+  'Se realiza una función flecha para mapear Category con sus respetivas propiedades '+
+  'Como parametro se le inserta categorias.'
 );
 
 addComponent(
@@ -92,15 +92,15 @@ addComponent(
 addComponent(
   '7. Componente Category.jsx',
   path.join(categoryPath, 'Category.jsx'),
-  'Representa cada categoría de productos dentro de la carta mostrando categoria, imagen y Product.'+
-  'Como parametro se inserta category, imagen y product'+
-  'Se realiza una función flecha para mapear Product con sus respetivas propiedades'
+  'Representa cada categoría de productos dentro de la carta mostrando categoria, imagen y Product. '+
+  'Como parametro se inserta category, imagen y product. '+
+  'Se realiza una función flecha para mapear Product con sus respetivas propiedades.'
 );
 
 addComponent(
   '8. Componente Product.jsx',
   path.join(productPath, 'Product.jsx'),
-  'Representa cada producto dentro de su categoría, mostrando nombre y precio.'+
+  'Representa cada producto dentro de su categoría, mostrando nombre y precio. '+
   'Como parametro se inserta name y price'
 );
 
