@@ -1,28 +1,47 @@
 body {
   background-image: url(https://cdn.freecodecamp.org/curriculum/css-cafe/beans.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  font-family: sans-serif;
 }
 
-.contenedor{
+.contenedor {
   background-color: burlywood;
-  width: 30vw;
-  height: 82vh;
-  margin: auto;
+  width: 90%;
+  max-width: 400px;        /* Evita que sea demasiado ancho en pantallas grandes */
+  min-height: 82vh;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;           /* Espacio interno uniforme */
+  box-sizing: border-box;  /* Asegura que padding no afecte el ancho total */
+  overflow-wrap: break-word; /* Evita que textos largos se salgan */
+  word-break: break-word;  /* Asegura cortes en palabras muy largas */
+  border-radius: 8px;
 }
 
+/* Ajustes progresivos para móviles */
 @media (max-width: 900px) {
-  .contenedor{
-    height: 86vh;
+  .contenedor {
+    min-height: 86vh;
+    max-width: 360px;
   }
 }
 
 @media (max-width: 750px) {
-  .contenedor{
-    height: 90vh;
+  .contenedor {
+    min-height: 90vh;
+    max-width: 320px;
   }
 }
 
 @media (max-width: 600px) {
-  .contenedor{
-    height: 98vh;
+  .contenedor {
+    min-height: auto; /* Deja que el alto crezca con el contenido */
+    width: 95%;
+    max-width: none;
   }
 }

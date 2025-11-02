@@ -1,12 +1,70 @@
-
-.price, .name {
-    display: inline-block;
-    width: 50%;
-    margin: 0px;
-    margin-top: 4px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 3px auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.price{
-    text-align: right;
+.name, .price {
+  display: inline-block;
+  width: 45%;
+  margin: 0;
+  margin-top: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.price {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: #8b4513;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.actions button:hover {
+  color: crimson;
+}
+
+/* Edición inline de producto */
+.edit-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  width: 90%;
+  margin: 3px auto;
+}
+
+.edit-product input {
+  width: 40%;
+  padding: 3px;
+  border: 1px solid #a0764b;
+  border-radius: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.edit-product button {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.edit-product button:hover {
+  background-color: #a0522d;
 }

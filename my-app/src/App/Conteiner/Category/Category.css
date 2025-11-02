@@ -1,25 +1,105 @@
-.main-category{
-    justify-content: center;
-    padding-left: 4%;
-    padding-right: 4%;
+.main-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 4%;
+  padding-right: 4%;
+  margin-top: 10px;
 }
 
-.h2-category{
-    text-align: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: black;
-    margin-bottom: 0px;
-    margin-top: 3%;
+/* Imagen centrada, manteniendo proporción */
+.main-category img {
+  display: block;
+  max-width: 80%;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 8px;
 }
 
-img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 2.5%;
+/* Encabezado categoría con botones editar/borrar */
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-ul{
-    padding: 0px;
-    margin-bottom: 0px;
+.category-actions button {
+  background: none;
+  border: none;
+  color: #8b4513;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.category-actions button:hover {
+  color: crimson;
+}
+
+.edit-name {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.edit-name input {
+  flex: 1;
+  padding: 3px;
+  border: 1px solid #a0764b;
+  border-radius: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.edit-name button {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.add-product {
+  margin-top: 6px;
+  text-align: center;
+}
+
+.add-product form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.add-product input {
+  width: 80%;
+  padding: 4px;
+  border: 1px solid #a0764b;
+  border-radius: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.9rem;
+}
+
+.add-product button {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.add-product button:hover {
+  background-color: #a0522d;
+}
+
+/* Lista de productos conservando el formato original */
+.product-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
