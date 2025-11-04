@@ -1,164 +1,184 @@
 // generate-pdf.cjs
 // Autor: Salvatore De Rosa Vega
-// Descripción: Script Node.js que genera un documento técnico en formato PDF explicando el funcionamiento completo del proyecto “Carta-Cafetería” desarrollado con React y Vite.
+// Descripción: Genera un documento PDF técnico del proyecto “Carta-Cafetería” desarrollado con React y Vite.
 
-const fs = require('fs');
-const path = require('path');
-const PDFDocument = require('pdfkit');
+const fs = require("fs");
+const path = require("path");
+const PDFDocument = require("pdfkit");
 
-// ======== CREACIÓN DEL DOCUMENTO PDF ========
+// ==== CONFIGURACIÓN BASE ====
+const OUTPUT_FILE = "Carta-Cafeteria.pdf";
 const doc = new PDFDocument({ margin: 50 });
-doc.pipe(fs.createWriteStream('Carta-Cafeteria.pdf'));
+doc.pipe(fs.createWriteStream(OUTPUT_FILE));
 
-// ======== ENCABEZADO APA ========
-doc.fontSize(18).text('Carta de Productos - Proyecto React', { align: 'center', underline: true });
+// ==== ENCABEZADO ====
+doc
+  .fontSize(18)
+  .text("Carta de Productos - Proyecto React", { align: "center", underline: true });
 doc.moveDown(0.5);
-doc.fontSize(14).text('Autor: Salvatore De Rosa Vega', { align: 'center' });
-doc.fontSize(12).text(`Fecha: ${new Date().toLocaleDateString()}`, { align: 'center' });
+doc.fontSize(14).text("Autor: Salvatore De Rosa Vega", { align: "center" });
+doc.fontSize(12).text(`Fecha: ${new Date().toLocaleDateString()}`, { align: "center" });
 doc.moveDown(2);
 
-// ======== INTRODUCCIÓN ========
-doc.fontSize(16).text('1. Introducción', { underline: true });
-doc.moveDown(0.5);
-doc.fontSize(12).text(
-  'El presente documento tiene como objetivo describir el funcionamiento interno del proyecto "Carta-Cafetería", ' +
-  'desarrollado en React con Vite. Se implementa una arquitectura basada en componentes, que manejan datos ' +
-  'a través de props y estados locales, siguiendo principios de modularidad y reutilización. ' +
-  'Además, se utiliza Node.js junto con la librería PDFKit para generar automáticamente este archivo de documentación técnica.'
-);
-doc.moveDown(1.5);
-
-// ======== EXPLICACIÓN GENERAL DEL SCRIPT ========
-doc.fontSize(16).text('2. Estructura del Script generate-pdf.cjs', { underline: true });
-doc.moveDown(0.5);
-doc.fontSize(12).text(
-  'El archivo generate-pdf.cjs crea un PDF estructurado con márgenes profesionales y formato de texto uniforme. ' +
-  'Se importan los módulos fs, path y pdfkit. Se crea un flujo de salida hacia un archivo físico llamado Carta-Cafeteria.pdf. ' +
-  'Cada sección documenta un componente de React y muestra su código fuente directamente dentro del documento.'
-);
-doc.moveDown(1.5);
-
-// ======== FUNCIÓN AUXILIAR addComponent ========
-doc.fontSize(16).text('3. Función addComponent()', { underline: true });
-doc.moveDown(0.5);
-doc.fontSize(12).text(
-  'La función addComponent(title, filePath, explanation) automatiza la inserción de secciones correspondientes a cada componente. ' +
-  'Lee el código fuente desde el sistema de archivos, lo inserta con formato monoespaciado (Courier) y añade una descripción técnica. ' +
-  'En caso de error (archivo inexistente o inaccesible), muestra un comentario de error dentro del PDF.'
-);
-doc.moveDown(1.5);
-
-// ======== DEFINICIÓN DE RUTAS ========
-doc.fontSize(16).text('4. Definición de rutas base', { underline: true });
-doc.moveDown(0.5);
-doc.fontSize(12).text(
-  'Las rutas se construyen mediante path.join para garantizar compatibilidad en distintos sistemas operativos. ' +
-  'Se define una ruta base dentro de la carpeta src/App y se crean subrutas hacia Conteiner, Category y Product, ' +
-  'donde residen los archivos JSX que conforman la carta digital.'
-);
-doc.moveDown(1.5);
-
-// ======== FUNCIÓN addComponent ========
-function addComponent(title, filePath, explanation) {
-  doc.fontSize(16).text(title, { underline: true });
+// ==== SECCIÓN UTILIDAD ====
+function section(title, text) {
+  doc.fontSize(16).fillColor("black").text(title, { underline: true });
   doc.moveDown(0.5);
-
-  try {
-    const code = fs.readFileSync(filePath, 'utf-8');
-    doc.font('Courier').fontSize(10).text(code, { lineGap: 2 });
-  } catch {
-    doc.font('Courier').fontSize(10).text('// ERROR: No se pudo leer el archivo o no existe.', { lineGap: 2 });
-  }
-
-  doc.moveDown(0.5);
-  doc.font('Helvetica').fontSize(12).text(explanation);
+  doc.fontSize(12).fillColor("black").text(text);
   doc.moveDown(1.5);
 }
 
-// ======== RUTAS ========
+// ==== SECCIONES GENERALES ====
+section(
+  "1. Introducción",
+  `Este documento describe el funcionamiento del proyecto "Carta-Cafetería",
+desarrollado en React con Vite. Implementa componentes modulares, estados locales
+y comunicación mediante props. Utiliza Node.js con PDFKit para generar documentación técnica automática.`
+);
+
+section(
+  "2. Estructura del Script",
+  `El script generate-pdf.cjs produce un PDF técnico uniforme. Importa fs, path y pdfkit,
+crea un flujo de escritura hacia un archivo físico y documenta los componentes React,
+incrustando el código fuente y su explicación.`
+);
+
+section(
+  "3. Función addComponent()",
+  `Automatiza la inserción de secciones. Lee un archivo fuente, lo inserta con fuente Courier
+y agrega una descripción técnica. Si el archivo no existe, incluye una nota de error.`
+);
+
+section(
+  "4. Rutas base",
+  `Se definen rutas mediante path.join, apuntando a la estructura del proyecto en src/App.
+Desde ahí se derivan subrutas a Conteiner, Category y Product.`
+);
+
+// ==== FUNCIÓN addComponent ====
+function addComponent(title, filePath, explanation) {
+  doc.fontSize(16).fillColor("black").text(title, { underline: true });
+  doc.moveDown(0.5);
+
+  try {
+    const code = fs.readFileSync(filePath, "utf-8");
+    doc.font("Courier").fontSize(10).text(code, { lineGap: 2 });
+  } catch {
+    doc
+      .font("Courier")
+      .fontSize(10)
+      .fillColor("red")
+      .text("// ERROR: No se pudo leer el archivo o no existe.", { lineGap: 2 });
+  }
+
+  doc.moveDown(0.5);
+  doc.font("Helvetica").fontSize(12).fillColor("black").text(explanation);
+  doc.moveDown(1.5);
+}
+
+// ==== RUTAS ====
 const baseSrc = path.join(
-  'C:', 'Users', 'adria', 'Desktop', 'Carpetas',
-  'Clase', 'Programación Multimedia y Dispositivos Móviles',
-  'Trabajo Tema 2', 'Carta-cafeteria', 'my-app', 'src', 'App'
+  "C:", "Users", "adria", "Desktop", "Carpetas",
+  "Clase", "Programación Multimedia y Dispositivos Móviles",
+  "Trabajo Tema 2", "Carta-cafeteria", "my-app", "src", "App"
 );
 
-const containerPath = path.join(baseSrc, 'Conteiner');
-const categoryPath = path.join(containerPath, 'Category');
-const productPath = path.join(categoryPath, 'Product');
+const containerPath = path.join(baseSrc, "Conteiner");
+const categoryPath = path.join(containerPath, "Category");
+const productPath = path.join(categoryPath, "Product");
 
-// ======== COMPONENTES ========
+// ==== COMPONENTES ====
 addComponent(
-  '5. Componente App.jsx',
-  path.join(baseSrc, 'App.jsx'),
-  'Componente principal que controla la estructura global de la aplicación. ' +
-  'Define el estado "categorias" con useState, donde se almacena el menú de la cafetería. ' +
-  'Implementa funciones CRUD (crear, editar, eliminar) tanto para categorías como para productos, ' +
-  'y las pasa como props al componente Conteiner.'
+  "5. Componente App.jsx",
+  path.join(baseSrc, "App.jsx"),
+  `Componente raíz. Gestiona el estado global "categorias" mediante useState,
+implementa las funciones CRUD con la API REST remota y pasa los métodos como props a Conteiner.`
 );
 
 addComponent(
-  '6. Componente Conteiner.jsx',
-  path.join(containerPath, 'Conteiner.jsx'),
-  'Componente contenedor que recibe "categorias" y las funciones CRUD desde App.jsx. ' +
-  'Gestiona la adición de nuevas categorías mediante un formulario controlado, ' +
-  'y mapea cada categoría al componente Category. Contiene Header, Spacer y Footer como elementos de presentación.'
+  "6. Componente Conteiner.jsx",
+  path.join(containerPath, "Conteiner.jsx"),
+  `Contenedor principal. Recibe categorías y métodos CRUD desde App.jsx.
+Incluye el formulario para añadir categorías y renderiza Category.jsx por cada una.`
 );
 
 addComponent(
-  '7. Componente Header.jsx',
-  path.join(containerPath, 'Header', 'Header.jsx'),
-  'Encabezado principal de la carta. Muestra el nombre del café y su año de fundación. ' +
-  'No contiene lógica, solo estructura visual.'
+  "7. Componente Header.jsx",
+  path.join(containerPath, "Header", "Header.jsx"),
+  `Encabezado estático que muestra el nombre del establecimiento. Sin lógica funcional.`
 );
 
 addComponent(
-  '8. Componente Footer.jsx',
-  path.join(containerPath, 'Footer', 'Footer.jsx'),
-  'Pie de página del documento. Contiene un enlace de contacto y dirección. ' +
-  'Se utiliza como componente estático.'
+  "8. Componente Footer.jsx",
+  path.join(containerPath, "Footer", "Footer.jsx"),
+  `Pie de página estático con contacto o información adicional.`
 );
 
 addComponent(
-  '9. Componente Spacer.jsx',
-  path.join(containerPath, 'Spacer', 'Spacer.jsx'),
-  'Elemento separador visual entre secciones. Devuelve una simple línea horizontal <hr />.'
+  "9. Componente Spacer.jsx",
+  path.join(containerPath, "Spacer", "Spacer.jsx"),
+  `Elemento de separación visual representado mediante <hr />.`
 );
 
 addComponent(
-  '10. Componente Category.jsx',
-  path.join(categoryPath, 'Category.jsx'),
-  'Componente encargado de mostrar cada categoría de productos. ' +
-  'Permite editar o eliminar categorías y agregar nuevos productos dentro de ellas. ' +
-  'Muestra la imagen asociada a la categoría y lista los productos mediante el componente Product. ' +
-  'Utiliza estados locales para gestionar la edición y creación de productos.'
+  "10. Componente Category.jsx",
+  path.join(categoryPath, "Category.jsx"),
+  `Representa una categoría de productos. Permite editar o eliminar la categoría
+y añadir productos nuevos. Contiene CategoryHeader, AddProductForm y ProductList.`
+);
+
+// ==== NUEVOS COMPONENTES ====
+
+addComponent(
+  "11. Componente CategoryHeader.jsx",
+  path.join(categoryPath, "CategoryHeader.jsx"),
+  `Encargado de mostrar el encabezado de una categoría.
+Permite editar el nombre de la categoría o eliminarla. Implementa confirmación
+si la categoría contiene productos antes de su eliminación.`
 );
 
 addComponent(
-  '11. Componente Product.jsx',
-  path.join(productPath, 'Product.jsx'),
-  'Representa cada producto dentro de una categoría. ' +
-  'Permite editar nombre y precio en línea o eliminar el producto tras confirmación. ' +
-  'Utiliza estados internos para alternar entre modo lectura y edición.'
+  "12. Componente AddProductForm.jsx",
+  path.join(categoryPath, "AddProductForm.jsx"),
+  `Formulario controlado para agregar nuevos productos.
+Gestiona los estados "name" y "price" y llama a la función onAddProducto
+pasando los datos al componente padre Category.`
 );
 
-// ======== REPOSITORIO GITHUB ========
-doc.fontSize(16).text('12. Repositorio GitHub', { underline: true });
+addComponent(
+  "13. Componente ProductList.jsx",
+  path.join(categoryPath, "ProductList.jsx"),
+  `Renderiza una lista de productos dentro de cada categoría.
+Mapea cada elemento del array productos hacia el componente Product,
+pasando las funciones CRUD correspondientes como props.`
+);
+
+addComponent(
+  "14. Componente Product.jsx",
+  path.join(productPath, "Product.jsx"),
+  `Representa un producto individual. Permite editar o eliminar el producto,
+usando estados internos para alternar entre modo edición y visualización.`
+);
+
+// ==== REPOSITORIO ====
+doc.fontSize(16).text("15. Repositorio GitHub", { underline: true });
 doc.moveDown(0.5);
-doc.fontSize(12).fillColor('blue').text(
-  'https://github.com/S4lv4-code/Carta-cafeteria',
-  { link: 'https://github.com/S4lv4-code/Carta-cafeteria', underline: true }
-);
+doc
+  .fontSize(12)
+  .fillColor("blue")
+  .text("https://github.com/S4lv4-code/Carta-cafeteria", {
+    link: "https://github.com/S4lv4-code/Carta-cafeteria",
+    underline: true,
+  });
 doc.moveDown(1.5);
 
-// ======== CONCLUSIÓN ========
-doc.fontSize(16).text('13. Conclusión técnica', { underline: true });
-doc.moveDown(0.5);
-doc.fontSize(12).fillColor('black').text(
-  'El sistema combina React para la creación de componentes dinámicos y PDFKit para la generación automática ' +
-  'de documentación. Este enfoque refuerza las buenas prácticas de modularidad, reutilización y documentación ' +
-  'automatizada, permitiendo mantener sincronizado el código fuente con su descripción técnica.'
+// ==== CONCLUSIÓN ====
+section(
+  "16. Conclusión técnica",
+  `El proyecto combina React para la interfaz interactiva con PDFKit para la documentación automatizada.
+La modularidad y el uso de API REST aseguran un mantenimiento limpio y escalabilidad del sistema.`
 );
 
-// ======== CIERRE ========
+// ==== FINAL ====
 doc.end();
-console.log('✅ PDF generado correctamente: Carta-Cafeteria.pdf');
+console.log(`✅ PDF generado correctamente: ${OUTPUT_FILE}`);

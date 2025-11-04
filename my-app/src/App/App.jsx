@@ -1,104 +1,192 @@
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Conteiner from "./Conteiner/Conteiner";
 
-import { useState } from 'react';
-import './App.css'
-import Conteiner from './Conteiner/Conteiner'
+const API_BASE = "https://jlorenzo.ddns.net/carta_restaurante";
+const USER_ID = 1;
 
+export default function App() {
+  const [categorias, setCategorias] = useState([]);
 
-function App() {
-  
-  const [categorias, setCategorias] = useState([
-    {
-      category: "coffee",
-      imagen: "https://cdn.freecodecamp.org/curriculum/css-cafe/coffee.jpg",
-      product: [
-        { name: "French Vanilla", price: 3.00 },
-        { name: "Caramel Macchiato", price: 3.75 },
-        { name: "Pumpkin Spice", price: 3.50 },
-        { name: "Hazelnut", price: 4.00 },
-        { name: "Mocha", price: 4.50 }
-      ]
-    },
-    {
-      category: "desserts",
-      imagen: "https://cdn.freecodecamp.org/curriculum/css-cafe/pie.jpg",
-      product: [
-        { name: "Donut", price: 1.50 },
-        { name: "Cherry Pie", price: 2.75 },
-        { name: "Cheesecake", price: 3.00 },
-        { name: "Cinnamon Roll", price: 2.50 }
-      ]
+  async function fetchCategorias() {
+    try {
+      const res = await fetch(`${API_BASE}/categorias/?usuario_id=${USER_ID}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+
+      // Extraer data correctamente
+      const arr = json.data;
+      if (!Array.isArray(arr)) {
+        console.error("Formato inesperado en /categorias:", json);
+        setCategorias([]);
+        return;
+      }
+
+      const categoriasNormalizadas = arr.map((c) => ({
+        id: c.id,
+        nombre: c.nombre,
+        imagen: "",
+        product: [],
+      }));
+
+      setCategorias(categoriasNormalizadas);
+
+      for (const cat of categoriasNormalizadas) {
+        await fetchProductos(cat.id);
+      }
+    } catch (err) {
+      console.error("Error fetchCategorias:", err);
+      setCategorias([]);
     }
-  ]);
-    //Generador de id
-    const genId = () => Date.now() + Math.floor(Math.random() * 1000);
+  }
 
-  function addCategoria({category, imagen}){
-    const newCat = {
-      id: genId(),
-      category,
-      imagen,
-      product:[],
+  async function fetchProductos(catId) {
+    try {
+      const res = await fetch(
+        `${API_BASE}/productos/${catId}?usuario_id=${USER_ID}`
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+
+      const arr = Array.isArray(json.data)
+        ? json.data
+        : Array.isArray(json)
+        ? json
+        : [];
+
+      if (!Array.isArray(arr)) {
+        console.error("Formato inesperado en /productos:", json);
+        return;
+      }
+
+      const productosNormalizados = arr.map((p) => ({
+        id: p.id,
+        name: p.nombre,
+        price: parseFloat(p.precio),
+      }));
+
+      setCategorias((prev) =>
+        prev.map((c) =>
+          c.id === catId ? { ...c, product: productosNormalizados } : c
+        )
+      );
+    } catch (err) {
+      console.error("Error fetchProductos:", err);
+    }
+  }
+
+  // ---------- CATEGORÍAS ----------
+  async function addCategoria({ category }) {
+    const body = { usuario_id: USER_ID, nombre: category };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error addCategoria:", err);
+    }
+  }
+
+  async function editCategoria(id, newName) {
+    const body = { usuario_id: USER_ID, nombre: newName, orden: 1 };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error editCategoria:", err);
+    }
+  }
+
+  async function deleteCategoria(id) {
+    const body = { usuario_id: USER_ID };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error deleteCategoria:", err);
+    }
+  }
+
+  // ---------- PRODUCTOS ----------
+  async function addProducto(catId, { name, price }) {
+    const body = {
+      usuario_id: USER_ID,
+      nombre: name,
+      precio: parseFloat(price),
+      orden: 1,
     };
-    setCategorias((prev) => [...prev, newCat]);
-  }
-
-  function editCategoria(id, newName){
-    setCategorias ((prev) => 
-      prev.map((cat) => 
-        (cat.id === id ? {...cat, category: newName} : cat)));
-  }
-
-  function deleteCategoria (id, options = { force: false}){
-    const cat = categorias.find((c) => c.id === id);
-    if(!cat) return;
-    if(cat.product.length > 0 && !options.force){
-      return { blocked: true, count: cat.product.length };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${catId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error addProducto:", err);
     }
-    setCategorias((prev) => prev.filter((c) => c.id !== id));
-    return{delete: true};
   }
 
-  function addProducto(catId, { name, price }) {
-    setCategorias((prev) =>
-      prev.map((c) =>
-        c.id === catId
-          ? {
-              ...c,
-              product: [...c.product, { id: genId(), name, price: Number(price) }],
-            }
-          : c
-      )
-    );
+  async function editProducto(catId, prodId, { name, price }) {
+    const body = {
+      usuario_id: USER_ID,
+      nombre: name,
+      precio: parseFloat(price),
+    };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${prodId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error editProducto:", err);
+    }
   }
 
-  function editProducto(catId, prodId, newData) {
-    setCategorias((prev) =>
-      prev.map((c) =>
-        c.id === catId
-          ? {
-              ...c,
-              product: c.product.map((p) =>
-                p.id === prodId ? { ...p, ...newData } : p
-              ),
-            }
-          : c
-      )
-    );
+  async function deleteProducto(catId, prodId) {
+    const body = { usuario_id: USER_ID };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${prodId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error deleteProducto:", err);
+    }
   }
 
-  function deleteProducto(catId, prodId) {
-    setCategorias((prev) =>
-      prev.map((c) =>
-        c.id === catId
-          ? { ...c, product: c.product.filter((p) => p.id !== prodId) }
-          : c
-      )
-    );
-  }
+  useEffect(() => {
+    fetchCategorias();
+  }, []);
+
+  useEffect(() => {
+    console.log("Categorías cargadas:", categorias);
+  }, [categorias]);
 
   return (
     <div className="contenedor">
-      <Conteiner 
+      <Conteiner
         categorias={categorias}
         onAddCategoria={addCategoria}
         onEditCategoria={editCategoria}
@@ -108,7 +196,5 @@ function App() {
         onDeleteProducto={deleteProducto}
       />
     </div>
-  )
+  );
 }
-
-export default App

@@ -20,7 +20,10 @@ export default function Conteiner({
   function handleAddCategoria(e) {
     e.preventDefault();
     if (!newCatName.trim()) return;
-    onAddCategoria({ category: newCatName.trim(), imagen: newCatImagen.trim() || undefined });
+    onAddCategoria({
+      category: newCatName.trim(),
+      imagen: newCatImagen.trim() || undefined,
+    });
     setNewCatName("");
     setNewCatImagen("");
   }
