@@ -4,7 +4,7 @@ import Conteiner from "./Conteiner/Conteiner";
 import { globalStyles } from "./theme";
 
 const API_BASE = "https://jlorenzo.ddns.net/carta_restaurante";
-const USER_ID = 1;
+const USER_ID = 2197;
 
 export default function App() {
   const [categorias, setCategorias] = useState([]);

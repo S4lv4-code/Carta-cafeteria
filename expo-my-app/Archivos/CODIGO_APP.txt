@@ -1,0 +1,1169 @@
+================================================================================
+                    CÓDIGO COMPLETO - CARPETA app/App
+================================================================================
+
+================================================================================
+1. app/App/theme.js - Sistema de temas centralizado
+================================================================================
+
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+const isMobile = width < 600;
+const isTablet = width >= 600 && width < 900;
+
+export const colors = {
+  primary: '#8b4513',
+  primaryDark: '#a0522d',
+  accent: 'crimson',
+  background: 'burlywood',
+  text: '#000',
+  textLight: '#333',
+  border: '#a0764b',
+  white: '#fff',
+  link: '#000000ff',
+};
+
+export const spacing = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 20,
+  xxl: 40,
+};
+
+export const globalStyles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+  },
+  container: {
+    backgroundColor: colors.background,
+    width: isMobile ? '95%' : '90%',
+    maxWidth: isMobile ? '100%' : 400,
+    marginVertical: isMobile ? spacing.md : spacing.xl,
+    marginHorizontal: 'auto',
+    paddingVertical: isMobile ? spacing.lg : spacing.xl,
+    paddingHorizontal: isMobile ? spacing.md : spacing.xl,
+    borderRadius: 8,
+    alignSelf: 'center',
+    minHeight: isMobile ? 'auto' : '82%',
+  },
+  contentContainer: {
+    paddingBottom: spacing.xxl,
+    paddingHorizontal: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  section: {
+    marginVertical: spacing.md,
+    paddingHorizontal: spacing.sm,
+  },
+  header: {
+    alignItems: 'center',
+    paddingVertical: isMobile ? spacing.md : spacing.lg,
+  },
+  title1: {
+    fontSize: isMobile ? 24 : 28,
+    fontWeight: 'bold',
+    fontFamily: 'Impact',
+    textAlign: 'center',
+    marginBottom: 0,
+  },
+  title2: {
+    fontSize: isMobile ? 12 : 14,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    paddingVertical: spacing.sm,
+  },
+  categoryTitle: {
+    fontSize: isMobile ? 16 : 20,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  spacer: {
+    height: 2,
+    backgroundColor: colors.accent,
+    width: '90%',
+    alignSelf: 'center',
+    marginVertical: spacing.sm,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: 6,
+    marginBottom: spacing.sm,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    fontSize: isMobile ? 12 : 13,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: 6,
+    alignItems: 'center',
+    minHeight: isMobile ? 44 : 40,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+    fontWeight: '600',
+    fontSize: isMobile ? 13 : 14,
+  },
+  smallButton: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.md,
+    borderRadius: 6,
+    backgroundColor: colors.primary,
+    marginLeft: spacing.sm,
+    minHeight: 40,
+    justifyContent: 'center',
+  },
+  smallButtonText: {
+    color: colors.white,
+    fontSize: isMobile ? 11 : 12,
+  },
+  iconButton: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    marginLeft: spacing.sm,
+    minHeight: 40,
+    justifyContent: 'center',
+  },
+  iconButtonText: {
+    color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: isMobile ? 11 : 12,
+  },
+  footer: {
+    alignItems: 'center',
+    paddingVertical: spacing.lg,
+    textAlign: 'center',
+  },
+  footerText: {
+    fontSize: isMobile ? 10 : 12,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    color: colors.text,
+  },
+  footerLink: {
+    color: colors.link,
+    textDecorationLine: 'underline',
+    marginBottom: spacing.sm,
+  },
+});
+
+export const categoryStyles = StyleSheet.create({
+  container: {
+    marginVertical: isMobile ? spacing.sm : spacing.md,
+    paddingHorizontal: spacing.sm,
+    backgroundColor: 'transparent',
+    borderRadius: 0,
+    alignItems: 'center',
+    width: '95%',
+  },
+  image: {
+    width: isMobile ? 100 : 120,
+    height: isMobile ? 70 : 80,
+    resizeMode: 'cover',
+    marginVertical: spacing.md,
+    borderRadius: 8,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingVertical: spacing.sm,
+  },
+  addSection: {
+    width: '100%',
+    paddingVertical: spacing.sm,
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  productList: {
+    width: '100%',
+    alignItems: 'center',
+  },
+});
+
+export const productStyles = StyleSheet.create({
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '90%',
+    marginVertical: spacing.xs,
+    paddingVertical: spacing.sm,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  namePrice: {
+    flexDirection: 'row',
+    width: isMobile ? '60%' : '70%',
+  },
+  name: {
+    width: '50%',
+    fontSize: isMobile ? 12 : 14,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+  },
+  price: {
+    width: '50%',
+    fontSize: isMobile ? 12 : 14,
+    textAlign: 'right',
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: isMobile ? spacing.xs : spacing.sm,
+  },
+  actionButton: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: isMobile ? spacing.xs : spacing.sm,
+    backgroundColor: '#eee',
+    borderRadius: 6,
+    minHeight: 40,
+    justifyContent: 'center',
+  },
+  actionButtonText: {
+    color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: isMobile ? 10 : 12,
+  },
+  danger: {
+    backgroundColor: 'transparent',
+  },
+  dangerText: {
+    color: colors.primaryDark,
+  },
+});
+
+export const formStyles = StyleSheet.create({
+  formContainer: {
+    marginVertical: spacing.md,
+    paddingHorizontal: spacing.sm,
+    width: '100%',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  inputGroup: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  input: {
+    width: isMobile ? '90%' : '80%',
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: 6,
+    marginBottom: spacing.sm,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    fontSize: isMobile ? 12 : 13,
+    backgroundColor: '#fff',
+  },
+  button: {
+    width: isMobile ? '70%' : '60%',
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.md,
+    borderRadius: 6,
+    alignItems: 'center',
+    minHeight: isMobile ? 44 : 40,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+    fontWeight: '600',
+    fontSize: isMobile ? 13 : 14,
+  },
+  editRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    gap: spacing.xs,
+    paddingHorizontal: spacing.sm,
+  },
+  editInput: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: 6,
+    minWidth: 60,
+    backgroundColor: '#fff',
+    fontSize: isMobile ? 11 : 12,
+  },
+});
+
+
+================================================================================
+2. app/App/components/Button.jsx - Componentes de botones reutilizables
+================================================================================
+
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { colors, spacing } from '../theme';
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 600;
+
+export function PrimaryButton({ onPress, children, style }) {
+  return (
+    <TouchableOpacity 
+      onPress={onPress} 
+      style={[styles.button, style]}
+      activeOpacity={0.7}
+    >
+      <Text style={styles.text}>{children}</Text>
+    </TouchableOpacity>
+  );
+}
+
+export function IconButton({ onPress, children, danger = false, style }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[
+        styles.iconButton,
+        danger && styles.danger,
+        !danger && style,
+        danger && style,
+      ]}
+      activeOpacity={0.7}
+    >
+      <Text style={[styles.iconText, danger ? styles.dangerText : null]}>
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
+export function SmallButton({ onPress, children, style }) {
+  return (
+    <TouchableOpacity 
+      onPress={onPress} 
+      style={[styles.smallButton, style]}
+      activeOpacity={0.7}
+    >
+      <Text style={styles.smallText}>{children}</Text>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: 6,
+    alignItems: 'center',
+    minHeight: isMobile ? 44 : 40,
+    justifyContent: 'center',
+  },
+  text: {
+    color: colors.white,
+    fontWeight: '600',
+    fontSize: isMobile ? 13 : 14,
+  },
+  iconButton: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    marginLeft: spacing.sm,
+    minHeight: 40,
+    justifyContent: 'center',
+  },
+  iconText: {
+    color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: isMobile ? 11 : 12,
+  },
+  danger: {
+    backgroundColor: 'transparent',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  dangerText: {
+    color: colors.primaryDark,
+  },
+  smallButton: {
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.md,
+    borderRadius: 6,
+    marginLeft: spacing.sm,
+    minHeight: 40,
+    justifyContent: 'center',
+  },
+  smallText: {
+    color: colors.white,
+    fontSize: isMobile ? 11 : 12,
+  },
+});
+
+
+================================================================================
+3. app/App/components/FormInput.jsx - Componente de entrada de formulario
+================================================================================
+
+import React from 'react';
+import { TextInput, StyleSheet, Dimensions } from 'react-native';
+import { colors, spacing } from '../theme';
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 600;
+
+export function FormInput({
+  placeholder,
+  value,
+  onChangeText,
+  keyboardType = 'default',
+  style,
+}) {
+  return (
+    <TextInput
+      placeholder={placeholder}
+      value={value}
+      onChangeText={onChangeText}
+      keyboardType={keyboardType}
+      style={[styles.input, style]}
+      placeholderTextColor="#999"
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: 6,
+    marginBottom: spacing.sm,
+    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    fontSize: isMobile ? 12 : 13,
+    backgroundColor: '#fff',
+    width: isMobile ? '90%' : '80%',
+  },
+});
+
+
+================================================================================
+4. app/App/App.jsx - Componente raíz principal
+================================================================================
+
+import React, { useState, useEffect } from "react";
+import { ScrollView, ImageBackground, View } from "react-native";
+import Conteiner from "./Conteiner/Conteiner";
+import { globalStyles } from "./theme";
+
+const API_BASE = "https://jlorenzo.ddns.net/carta_restaurante";
+const USER_ID = 2197;
+
+export default function App() {
+  const [categorias, setCategorias] = useState([]);
+
+  async function fetchCategorias() {
+    try {
+      const res = await fetch(`${API_BASE}/categorias/?usuario_id=${USER_ID}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+
+      // Extraer data correctamente
+      const arr = json.data;
+      if (!Array.isArray(arr)) {
+        console.error("Formato inesperado en /categorias:", json);
+        setCategorias([]);
+        return;
+      }
+
+      const categoriasNormalizadas = arr.map((c) => ({
+        id: c.id,
+        nombre: c.nombre,
+        imagen: "",
+        product: [],
+      }));
+
+      setCategorias(categoriasNormalizadas);
+
+      for (const cat of categoriasNormalizadas) {
+        await fetchProductos(cat.id);
+      }
+    } catch (err) {
+      console.error("Error fetchCategorias:", err);
+      setCategorias([]);
+    }
+  }
+
+  async function fetchProductos(catId) {
+    try {
+      const res = await fetch(
+        `${API_BASE}/productos/${catId}?usuario_id=${USER_ID}`
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+
+      const arr = Array.isArray(json.data)
+        ? json.data
+        : Array.isArray(json)
+        ? json
+        : [];
+
+      if (!Array.isArray(arr)) {
+        console.error("Formato inesperado en /productos:", json);
+        return;
+      }
+
+      const productosNormalizados = arr.map((p) => ({
+        id: p.id,
+        name: p.nombre,
+        price: parseFloat(p.precio),
+      }));
+
+      setCategorias((prev) =>
+        prev.map((c) =>
+          c.id === catId ? { ...c, product: productosNormalizados } : c
+        )
+      );
+    } catch (err) {
+      console.error("Error fetchProductos:", err);
+    }
+  }
+
+  // ---------- CATEGORÍAS ----------
+  async function addCategoria({ category }) {
+    const body = { usuario_id: USER_ID, nombre: category };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error addCategoria:", err);
+    }
+  }
+
+  async function editCategoria(id, newName) {
+    const body = { usuario_id: USER_ID, nombre: newName, orden: 1 };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error editCategoria:", err);
+    }
+  }
+
+  async function deleteCategoria(id) {
+    const body = { usuario_id: USER_ID };
+    try {
+      const res = await fetch(`${API_BASE}/categorias/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchCategorias();
+    } catch (err) {
+      console.error("Error deleteCategoria:", err);
+    }
+  }
+
+  // ---------- PRODUCTOS ----------
+  async function addProducto(catId, { name, price }) {
+    const body = {
+      usuario_id: USER_ID,
+      nombre: name,
+      precio: parseFloat(price),
+      orden: 1,
+    };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${catId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error addProducto:", err);
+    }
+  }
+
+  async function editProducto(catId, prodId, { name, price }) {
+    const body = {
+      usuario_id: USER_ID,
+      nombre: name,
+      precio: parseFloat(price),
+    };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${prodId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error editProducto:", err);
+    }
+  }
+
+  async function deleteProducto(catId, prodId) {
+    const body = { usuario_id: USER_ID };
+    try {
+      const res = await fetch(`${API_BASE}/productos/${prodId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await fetchProductos(catId);
+    } catch (err) {
+      console.error("Error deleteProducto:", err);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategorias();
+  }, []);
+
+  useEffect(() => {
+    console.log("Categorías cargadas:", categorias);
+  }, [categorias]);
+
+  return (
+    <ImageBackground
+      source={{ uri: 'https://cdn.freecodecamp.org/curriculum/css-cafe/beans.jpg' }}
+      style={globalStyles.scrollView}
+      resizeMode="cover"
+    >
+      <ScrollView contentContainerStyle={globalStyles.contentContainer}>
+        <View style={globalStyles.container}>
+          <Conteiner
+            categorias={categorias}
+            onAddCategoria={addCategoria}
+            onEditCategoria={editCategoria}
+            onDeleteCategoria={deleteCategoria}
+            onAddProducto={addProducto}
+            onEditProducto={editProducto}
+            onDeleteProducto={deleteProducto}
+          />
+        </View>
+      </ScrollView>
+    </ImageBackground>
+  );
+}
+
+
+================================================================================
+5. app/App/Conteiner/Conteiner.jsx - Contenedor principal
+================================================================================
+
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import Header from "./Header/Header";
+import Spacer from "./Spacer/Spacer";
+import Category from "./Category/Category";
+import Footer from "./Footer/Footer";
+import { FormInput } from "../components/FormInput";
+import { PrimaryButton } from "../components/Button";
+import { spacing, colors, formStyles } from "../theme";
+
+export default function Conteiner({
+  categorias,
+  onAddCategoria,
+  onEditCategoria,
+  onDeleteCategoria,
+  onAddProducto,
+  onEditProducto,
+  onDeleteProducto,
+}) {
+  const [newCatName, setNewCatName] = useState("");
+  const [newCatImagen, setNewCatImagen] = useState("");
+
+  function handleAddCategoria() {
+    if (!newCatName.trim()) return;
+    onAddCategoria({
+      category: newCatName.trim(),
+      imagen: newCatImagen.trim() || undefined,
+    });
+    setNewCatName("");
+    setNewCatImagen("");
+  }
+
+  return (
+    <View style={styles.container}>
+      <Header />
+      <Spacer />
+
+      <View style={styles.addSection}>
+        <FormInput
+          placeholder="Nombre categoría"
+          value={newCatName}
+          onChangeText={setNewCatName}
+        />
+        <FormInput
+          placeholder="URL imagen (opcional)"
+          value={newCatImagen}
+          onChangeText={setNewCatImagen}
+        />
+        <PrimaryButton onPress={handleAddCategoria}>
+          Agregar categoría
+        </PrimaryButton>
+      </View>
+
+      <Spacer />
+      {categorias.map((cat) => (
+        <Category
+          key={cat.id}
+          cat={cat}
+          onEditCategoria={onEditCategoria}
+          onDeleteCategoria={onDeleteCategoria}
+          onAddProducto={onAddProducto}
+          onEditProducto={onEditProducto}
+          onDeleteProducto={onDeleteProducto}
+        />
+      ))}
+      <Spacer />
+      <Footer />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { width: '100%', alignItems: 'center' },
+  addSection: { alignItems: 'center', width: '100%', marginVertical: spacing.md, gap: spacing.sm },
+});
+
+
+================================================================================
+6. app/App/Conteiner/Header/Header.jsx - Encabezado
+================================================================================
+
+import React from "react";
+import { View, Text } from "react-native";
+import { globalStyles } from "../../theme";
+
+export default function Header() {
+  return (
+    <View style={globalStyles.header}>
+      <Text style={globalStyles.title1}>CAMPER CAFE</Text>
+      <Text style={globalStyles.title2}>Est. 2020</Text>
+    </View>
+  );
+}
+
+
+================================================================================
+7. app/App/Conteiner/Spacer/Spacer.jsx - Separador visual
+================================================================================
+
+import React from 'react';
+import { View } from "react-native";
+import { globalStyles } from "../../theme";
+
+export default function Spacer() {
+  return <View style={globalStyles.spacer} />;
+}
+
+
+================================================================================
+8. app/App/Conteiner/Footer/Footer.jsx - Pie de página
+================================================================================
+
+import React from "react";
+import { View, Text, Linking, StyleSheet, TouchableOpacity } from "react-native";
+
+export default function Footer() {
+  const handlePress = () => {
+    const url = "https://www.freecodecamp.org";
+    Linking.openURL(url).catch((err) =>
+      console.error("Couldn't load page", err)
+    );
+  };
+
+  return (
+    <View style={styles.footer}>
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={styles.link}>Visit our website</Text>
+      </TouchableOpacity>
+      <Text style={styles.address}>123 Free Code Camp Drive</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  footer: {
+    alignItems: "center",
+    padding: 16,
+  },
+  link: {
+    color: "#000000ff",
+    textDecorationLine: "underline",
+    marginBottom: 8,
+  },
+  address: {
+    color: "#333",
+  },
+});
+
+
+================================================================================
+9. app/App/Conteiner/Category/Category.jsx - Componente de categoría
+================================================================================
+
+import React from "react";
+import { View, Image, StyleSheet } from "react-native";
+import CategoryHeader from "./CategoryHeader";
+import AddProductForm from "./AddProductForm";
+import ProductList from "./ProductList";
+import { categoryStyles } from "../../theme";
+
+export default function Category({
+  cat,
+  onEditCategoria,
+  onDeleteCategoria,
+  onAddProducto,
+  onEditProducto,
+  onDeleteProducto,
+}) {
+  return (
+    <View style={categoryStyles.container}>
+      <CategoryHeader
+        cat={cat}
+        onEditCategoria={onEditCategoria}
+        onDeleteCategoria={onDeleteCategoria}
+      />
+
+      {cat.imagen ? (
+        <Image source={{ uri: cat.imagen }} style={categoryStyles.image} />
+      ) : null}
+
+      <AddProductForm catId={cat.id} onAddProducto={onAddProducto} />
+
+      <ProductList
+        productos={Array.isArray(cat.product) ? cat.product : []}
+        catId={cat.id}
+        onEditProducto={onEditProducto}
+        onDeleteProducto={onDeleteProducto}
+      />
+    </View>
+  );
+}
+
+
+================================================================================
+10. app/App/Conteiner/Category/CategoryHeader.jsx - Encabezado de categoría
+================================================================================
+
+import React, { useState } from "react";
+import { View, Text, Alert, StyleSheet, Dimensions } from "react-native";
+import ButtonCategory from "../Buttons/ButtonCategory";
+import { FormInput } from "../../components/FormInput";
+import { SmallButton } from "../../components/Button";
+import { globalStyles, colors, spacing } from "../../theme";
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 600;
+
+export default function CategoryHeader({
+  cat,
+  onEditCategoria,
+  onDeleteCategoria,
+}) {
+  const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState(cat.nombre);
+
+  function handleSave() {
+    if (!newName.trim()) return;
+    onEditCategoria(cat.id, newName.trim());
+    setEditing(false);
+  }
+
+  function handleDelete() {
+    Alert.alert(
+      'Confirmar eliminación',
+      `¿Eliminar la categoría "${cat.nombre}"?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Eliminar', style: 'destructive', onPress: () => onDeleteCategoria(cat.id) },
+      ]
+    );
+  }
+
+  return (
+    <View style={styles.header}>
+      {!editing ? (
+        <>
+          <Text style={[globalStyles.categoryTitle]}>{cat.nombre.toUpperCase()}</Text>
+          <ButtonCategory
+            cat={cat}
+            onEditCategoria={() => setEditing(true)}
+            onDeleteCategoria={handleDelete}
+          />
+        </>
+      ) : (
+        <View style={styles.editRow}>
+          <FormInput value={newName} onChangeText={setNewName} style={styles.input} />
+          <SmallButton onPress={handleSave}>Guardar</SmallButton>
+          <SmallButton onPress={() => setEditing(false)}>Cancelar</SmallButton>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  header: { 
+    flexDirection: isMobile ? 'column' : 'row', 
+    alignItems: isMobile ? 'flex-start' : 'center', 
+    justifyContent: 'space-between', 
+    width: '100%',
+    marginBottom: isMobile ? spacing.sm : 0,
+  },
+  editRow: { 
+    flexDirection: isMobile ? 'column' : 'row', 
+    alignItems: 'center', 
+    width: '100%',
+    gap: spacing.sm,
+  },
+  input: { width: isMobile ? '100%' : 'auto', flex: isMobile ? 1 : 0 },
+});
+
+
+================================================================================
+11. app/App/Conteiner/Category/AddProductForm.jsx - Formulario para agregar producto
+================================================================================
+
+import React, { useState } from "react";
+import { View } from "react-native";
+import { FormInput } from "../../components/FormInput";
+import { PrimaryButton } from "../../components/Button";
+import { formStyles } from "../../theme";
+
+export default function AddProductForm({ catId, onAddProducto }) {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+
+  function handleSubmit() {
+    if (!name.trim() || price === "") return;
+    onAddProducto(catId, { name: name.trim(), price: parseFloat(price) });
+    setName("");
+    setPrice("");
+  }
+
+  return (
+    <View style={formStyles.formContainer}>
+      <FormInput
+        placeholder="Nombre producto"
+        value={name}
+        onChangeText={setName}
+      />
+      <FormInput
+        placeholder="Precio"
+        value={price}
+        onChangeText={setPrice}
+        keyboardType="numeric"
+      />
+      <PrimaryButton onPress={handleSubmit}>
+        Agregar producto
+      </PrimaryButton>
+    </View>
+  );
+}
+
+
+================================================================================
+12. app/App/Conteiner/Category/ProductList.jsx - Lista de productos
+================================================================================
+
+import React from "react";
+import { View } from "react-native";
+import Product from "./Product/Product";
+
+export default function ProductList({
+  productos,
+  catId,
+  onEditProducto,
+  onDeleteProducto,
+}) {
+  if (!Array.isArray(productos)) productos = [];
+
+  return (
+    <View>
+      {productos.map((p) => (
+        <Product
+          key={p.id}
+          prod={p}
+          catId={catId}
+          onEditProducto={onEditProducto}
+          onDeleteProducto={onDeleteProducto}
+        />
+      ))}
+    </View>
+  );
+}
+
+
+================================================================================
+13. app/App/Conteiner/Category/Product/Product.jsx - Componente de producto
+================================================================================
+
+import React, { useState } from "react";
+import { View, Text, Alert, StyleSheet, Dimensions } from "react-native";
+import { FormInput } from "../../../components/FormInput";
+import { IconButton, SmallButton } from "../../../components/Button";
+import { productStyles, colors, spacing } from "../../../theme";
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 600;
+
+export default function Product({
+  prod,
+  catId,
+  onEditProducto,
+  onDeleteProducto,
+}) {
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(prod.name);
+  const [price, setPrice] = useState(String(prod.price));
+
+  function saveEdit() {
+    if (!name.trim() || price === "") return;
+    onEditProducto(catId, prod.id, { name: name.trim(), price: Number(price) });
+    setEditing(false);
+  }
+
+  function handleDelete() {
+    Alert.alert(
+      'Eliminar producto',
+      `Eliminar producto "${prod.name}"?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Borrar', style: 'destructive', onPress: () => onDeleteProducto(catId, prod.id) },
+      ]
+    );
+  }
+
+  return (
+    <View style={styles.item}>
+      {!editing ? (
+        <>
+          <Text style={styles.name}>{prod.name}</Text>
+          <Text style={styles.price}>{Number(prod.price).toFixed(2)}</Text>
+          <View style={styles.actions}>
+            <IconButton onPress={() => {
+              setEditing(true);
+              setName(prod.name);
+              setPrice(String(prod.price));
+            }}>Editar</IconButton>
+            <IconButton onPress={handleDelete} danger>Borrar</IconButton>
+          </View>
+        </>
+      ) : (
+        <View style={styles.editRow}>
+          <FormInput value={name} onChangeText={setName} style={styles.input} />
+          <FormInput value={price} onChangeText={setPrice} keyboardType="numeric" style={styles.input} />
+          <SmallButton onPress={saveEdit}>Guardar</SmallButton>
+          <SmallButton onPress={() => setEditing(false)}>Cancelar</SmallButton>
+        </View>
+      )}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  item: { 
+    paddingVertical: 8, 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#eee', 
+    width: '100%',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: isMobile ? 'flex-start' : 'center',
+    justifyContent: 'space-between',
+  },
+  name: { 
+    fontSize: isMobile ? 13 : 16, 
+    marginBottom: isMobile ? 4 : 0,
+    flex: isMobile ? 0 : 1,
+    width: isMobile ? '100%' : 'auto',
+  },
+  price: { 
+    color: '#666', 
+    fontSize: isMobile ? 12 : 14, 
+    marginBottom: isMobile ? 6 : 0,
+    textAlign: isMobile ? 'left' : 'right',
+    marginLeft: isMobile ? 0 : 12,
+  },
+  actions: { flexDirection: 'row', marginTop: isMobile ? 8 : 8, width: isMobile ? '100%' : 'auto' },
+  actionButton: { padding: 8, backgroundColor: '#eee', borderRadius: 6, marginRight: 8, minHeight: 40, justifyContent: 'center' },
+  danger: { backgroundColor: 'transparent' },
+  editRow: { flexDirection: 'column', alignItems: 'center', width: '100%', gap: spacing.sm },
+  input: { width: '100%', borderWidth: 1, borderColor: '#ccc', padding: 6, borderRadius: 6, marginBottom: 8, backgroundColor: '#fff' },
+});
+
+
+================================================================================
+14. app/App/Conteiner/Buttons/ButtonCategory.jsx - Botones de categoría
+================================================================================
+
+import React from "react";
+import { View } from "react-native";
+import { IconButton } from "../../components/Button";
+import { colors, spacing } from "../../theme";
+
+export default function ButtonCategory({
+  cat,
+  onEditCategoria,
+  onDeleteCategoria,
+}) {
+  function handleDelete(){
+    onDeleteCategoria(cat.id);
+  }
+  function handleEdit(){
+    onEditCategoria(cat.id);
+  }
+
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      <IconButton onPress={handleEdit}>Editar</IconButton>
+      <IconButton onPress={handleDelete} danger>Borrar</IconButton>
+    </View>
+  );
+}
+
+
+================================================================================
+ARCHIVO: app/index.tsx - Punto de entrada de la aplicación
+================================================================================
+
+import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import App from "./App/App";
+
+export default function Index() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <App />
+    </GestureHandlerRootView>
+  );
+}
+
+
+================================================================================
+FIN DEL CÓDIGO - app/App
+================================================================================

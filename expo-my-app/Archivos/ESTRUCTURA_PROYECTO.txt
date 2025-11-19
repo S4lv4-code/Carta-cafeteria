@@ -1,0 +1,555 @@
+================================================================================
+ESTRUCTURA DEL PROYECTO - CARTA CAFETERIA (React Native + Expo)
+Ruta Base: ./app/App
+Formato: Descripción Funcional, Objetivo y Extensión para PDF (APA)
+================================================================================
+
+================================================================================
+1. COMPONENTE RAÍZ: App.jsx
+================================================================================
+
+Ubicación: ./app/App/App.jsx
+
+Descripción Funcional:
+  - Componente principal que gestiona el estado global de categorías y productos
+  - Implementa la capa de API para comunicación con backend
+  - Proporciona las funciones CRUD (Create, Read, Update, Delete) para categorías y productos
+  - Maneja el ciclo de vida de la aplicación (fetch inicial de datos)
+  - Envuelve toda la interfaz con ImageBackground (imagen de fondo: beans.jpg)
+  - Implementa ScrollView para navegación vertical en dispositivos móviles
+
+Objetivo Principal:
+  - Centralizar la lógica de estado y gestión de datos
+  - Actuar como contenedor de la interfaz de usuario
+  - Comunicarse con API REST (https://jlorenzo.ddns.net/carta_restaurante)
+  - Garantizar sincronización de datos entre componentes
+
+Funciones Clave:
+  - fetchCategorias(): Obtiene lista de categorías del API
+  - fetchProductos(catId): Obtiene productos de una categoría específica
+  - addCategoria(): Crea nueva categoría
+  - editCategoria(): Actualiza nombre de categoría
+  - deleteCategoria(): Elimina categoría
+  - addProducto(): Crea nuevo producto en categoría
+  - editProducto(): Actualiza producto
+  - deleteProducto(): Elimina producto
+
+Extensión Aproximada en PDF (APA):
+  - Descripción técnica: 0.5 páginas
+  - Diagrama de flujo CRUD: 0.75 páginas
+  - Código comentado: 1 página
+  - Total estimado: 2.25 páginas
+
+================================================================================
+2. SISTEMA DE TEMAS: theme.js
+================================================================================
+
+Ubicación: ./app/App/theme.js
+
+Descripción Funcional:
+  - Archivo centralizado de estilos y configuración visual
+  - Define paleta de colores (#8b4513 marrón principal, #a0522d oscuro, crimson acento)
+  - Implementa escalas de espaciado (xs: 4px, sm: 8px, md: 12px, etc.)
+  - Proporciona StyleSheet predefinidos para componentes reutilizables
+  - Implementa lógica responsive basada en Dimensions (mobile <600px, tablet 600-900px, desktop >900px)
+  - Exporta 4 grupos de estilos: globalStyles, categoryStyles, productStyles, formStyles
+
+Objetivo Principal:
+  - Garantizar consistencia visual en toda la aplicación
+  - Facilitar cambios globales de tema
+  - Optimizar rendimiento mediante StyleSheet de React Native
+  - Simplificar mantenimiento de estilos
+
+Características Responsive:
+  - Detección automática de tamaño de pantalla
+  - Tipografía adaptativa (24px móvil vs 28px desktop para títulos)
+  - Ajuste de espaciado según dispositivo
+  - Dimensiones de botones (minHeight: 40-44px para accesibilidad)
+
+Extensión Aproximada en PDF (APA):
+  - Descripción del sistema: 0.5 páginas
+  - Tabla de colores y espaciado: 0.5 páginas
+  - Explicación de responsividad: 0.75 páginas
+  - Código StyleSheet comentado: 1.5 páginas
+  - Total estimado: 3.25 páginas
+
+================================================================================
+3. BIBLIOTECA DE COMPONENTES: components/
+================================================================================
+
+3.1. Button.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/components/Button.jsx
+
+Descripción Funcional:
+  - Exporta 3 componentes de botón reutilizables: PrimaryButton, IconButton, SmallButton
+  - Implementa activeOpacity={0.7} para feedback táctil
+  - PrimaryButton: Botón primario con fondo marrón (#8b4513)
+  - IconButton: Botón con icono/texto, soporta prop 'danger' para estilo de eliminación
+  - SmallButton: Botón compacto para acciones secundarias
+  - Todos los botones tienen minHeight de 40-44px para accesibilidad WCAG
+
+Objetivo Principal:
+  - Eliminar duplicación de código en toda la aplicación
+  - Proporcionar interfaz consistente para acciones
+  - Optimizar performance mediante componentes controlados
+  - Mejorar accesibilidad de la aplicación
+
+Props Disponibles:
+  - onPress: función callback del evento táctil
+  - children: contenido del botón
+  - danger: booleano para aplicar estilo de eliminación (IconButton)
+  - style: estilos personalizados adicionales
+
+Estilos Aplicados:
+  - Primary: fondo #8b4513, texto blanco, 13-14px
+  - Icon: transparente, texto #a0522d, 11-12px
+  - Danger: transparente, texto #a0522d, sin borde
+
+Extensión Aproximada en PDF (APA):
+  - Descripción de componentes: 0.5 páginas
+  - Props y propiedades: 0.5 páginas
+  - Ejemplos de uso: 0.5 páginas
+  - Código completo: 1 página
+  - Total estimado: 2.5 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+3.2. FormInput.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/components/FormInput.jsx
+
+Descripción Funcional:
+  - Componente de entrada de texto reutilizable
+  - Encapsula TextInput de React Native con estilos consistentes
+  - Implementa responsividad: 90% ancho móvil, 80% desktop
+  - Proporciona placeholder, valor, y callback onChangeText
+  - Soporta tipos de teclado (default, numeric, email, etc.)
+  - Fondo blanco para visibilidad sobre burlywood
+
+Objetivo Principal:
+  - Estandarizar inputs en formularios
+  - Reducir código repetitivo en AddProductForm y CategoryHeader
+  - Garantizar accesibilidad mediante espaciado y tamaños adecuados
+  - Mantener consistencia visual
+
+Props Disponibles:
+  - placeholder: texto de ayuda
+  - value: valor actual del input
+  - onChangeText: callback de cambio
+  - keyboardType: tipo de teclado
+  - style: estilos personalizados
+
+Extensión Aproximada en PDF (APA):
+  - Descripción del componente: 0.3 páginas
+  - Props y funcionalidad: 0.3 páginas
+  - Código: 0.5 páginas
+  - Total estimado: 1.1 páginas
+
+================================================================================
+4. CONTENEDOR PRINCIPAL: Conteiner/
+================================================================================
+
+4.1. Conteiner.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Conteiner.jsx
+
+Descripción Funcional:
+  - Componente que organiza la estructura principal del layout
+  - Gestiona el formulario de agregar nuevas categorías
+  - Renderiza Header, Spacer, lista de Categorías, y Footer
+  - Maneja estado local para inputs de nueva categoría (nombre e imagen)
+  - No incluye ScrollView (delegado a App.jsx)
+  - Proporciona props drilling para funciones CRUD a componentes hijo
+
+Objetivo Principal:
+  - Organizar jerarquía de componentes
+  - Gestionar entrada de usuario para nuevas categorías
+  - Distribuir funciones CRUD a componentes especializados
+  - Mantener estructura modular y escalable
+
+Estructura de Layout:
+  1. Header (encabezado "CAMPER CAFE")
+  2. Spacer (divisor visual)
+  3. AddCategoryForm (formulario de nueva categoría)
+  4. Spacer
+  5. CategoryList (map de categorías)
+  6. Spacer
+  7. Footer
+
+Extensión Aproximada en PDF (APA):
+  - Descripción de estructura: 0.5 páginas
+  - Diagrama de layout: 0.75 páginas
+  - Código: 1 página
+  - Total estimado: 2.25 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+4.2. Header/Header.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Header/Header.jsx
+
+Descripción Funcional:
+  - Componente simple que renderiza encabezado de la aplicación
+  - Muestra "CAMPER CAFE" como título principal
+  - Muestra "Est. 2020" como subtítulo/establecimiento
+  - Utiliza globalStyles.title1 y globalStyles.title2 para tipografía responsiva
+  - Centrado horizontalmente
+
+Objetivo Principal:
+  - Proporcionar identidad visual a la aplicación
+  - Mostrar nombre y año de establecimiento
+
+Tipografía:
+  - title1: 24px móvil, 28px desktop, Bold, Impact
+  - title2: 12px móvil, 14px desktop, Italic
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.2 páginas
+  - Código: 0.3 páginas
+  - Total estimado: 0.5 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+4.3. Spacer/Spacer.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Spacer/Spacer.jsx
+
+Descripción Funcional:
+  - Componente visual simple que renderiza línea divisora
+  - Altura: 2px, color: crimson (#dc143c)
+  - Ancho: 90% con centrado automático
+  - Usado entre secciones para separación visual
+
+Objetivo Principal:
+  - Mejorar separación visual entre secciones
+  - Mantener consistencia de diseño
+
+Propiedades Visuales:
+  - Alto: 2px
+  - Color: crimson
+  - Ancho: 90%
+  - Margen vertical: spacing.sm (8px)
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.2 páginas
+  - Código: 0.2 páginas
+  - Total estimado: 0.4 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+4.4. Footer/Footer.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Footer/Footer.jsx
+
+Descripción Funcional:
+  - Componente que muestra información de contacto y enlace web
+  - Implementa Linking.openURL para abrir URL en navegador
+  - Muestra enlace "Visit our website" hacia freecodecamp.org
+  - Muestra dirección "123 Free Code Camp Drive"
+  - Usa TouchableOpacity para interactividad
+
+Objetivo Principal:
+  - Proporcionar información de contacto
+  - Permitir navegación hacia sitio web externo
+
+Funcionalidades:
+  - handlePress(): Abre freecodecamp.org en navegador
+  - Captura errores de navegación
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.3 páginas
+  - Código: 0.5 páginas
+  - Total estimado: 0.8 páginas
+
+================================================================================
+5. MÓDULO DE CATEGORÍAS: Conteiner/Category/
+================================================================================
+
+5.1. Category.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Category/Category.jsx
+
+Descripción Funcional:
+  - Componente que representa una categoría individual
+  - Renderiza header de categoría con título y botones de acción
+  - Muestra imagen opcional de categoría (mediante Image component)
+  - Contiene formulario para agregar nuevos productos
+  - Renderiza lista completa de productos en categoría
+  - Proporciona context de categoría a componentes hijo
+
+Objetivo Principal:
+  - Agrupar lógica y UI relacionada a una categoría específica
+  - Facilitar management de productos dentro de categoría
+  - Mantener separación de responsabilidades
+
+Estructura Interna:
+  1. CategoryHeader (título + botones editar/borrar)
+  2. Image (opcional, si existe imagen)
+  3. AddProductForm (formulario nuevo producto)
+  4. ProductList (lista de productos)
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.5 páginas
+  - Flujo de componentes: 0.5 páginas
+  - Código: 0.75 páginas
+  - Total estimado: 1.75 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+5.2. CategoryHeader.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Category/CategoryHeader.jsx
+
+Descripción Funcional:
+  - Componente que renderiza encabezado de categoría con título
+  - Implementa edición inline: titulo → input → buttons (Guardar/Cancelar)
+  - Proporciona botones para editar y borrar categoría
+  - Usa Alert.alert para confirmación de eliminación
+  - Responsivo: stack vertical en móvil, row en desktop
+  - Mantiene estado local de edición
+
+Objetivo Principal:
+  - Permitir visualización y edición de nombre de categoría
+  - Proporcionar acceso a acciones de edición/eliminación
+  - Mejorar UX mediante interfaz inline
+
+Estados:
+  - viewing: Muestra título + botones de acción
+  - editing: Muestra input + botones guardar/cancelar
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.5 páginas
+  - Estados y flujo: 0.5 páginas
+  - Código: 1 página
+  - Total estimado: 2 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+5.3. AddProductForm.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Category/AddProductForm.jsx
+
+Descripción Funcional:
+  - Componente que proporciona formulario para agregar nuevo producto
+  - Contiene 2 FormInputs: nombre y precio
+  - Botón "Agregar producto" para submit
+  - Valida que nombre no esté vacío y precio sea válido
+  - Limpia inputs después de agregar exitosamente
+  - Usa keyboardType="numeric" para campo de precio
+
+Objetivo Principal:
+  - Permitir creación de nuevos productos
+  - Validar entrada de usuario
+  - Proporcionar feedback visual
+
+Props Requeridas:
+  - catId: ID de categoría donde se agregará producto
+  - onAddProducto: Callback para enviar datos a App.jsx
+
+Validaciones:
+  - Nombre no vacío (trim())
+  - Precio es número válido
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.3 páginas
+  - Validaciones: 0.3 páginas
+  - Código: 0.5 páginas
+  - Total estimado: 1.1 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+5.4. ProductList.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Category/ProductList.jsx
+
+Descripción Funcional:
+  - Componente simple que renderiza lista de productos
+  - Realiza map() sobre array de productos
+  - Renderiza componente Product para cada producto
+  - Valida que productos sea array válido
+
+Objetivo Principal:
+  - Iterar sobre productos de categoría
+  - Delegar renderización individual a Product.jsx
+  - Mantener código limpio y modular
+
+Manejo de Errores:
+  - Si productos no es array, asigna [] vacío
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.2 páginas
+  - Código: 0.3 páginas
+  - Total estimado: 0.5 páginas
+
+────────────────────────────────────────────────────────────────────────────
+
+5.5. Product/Product.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Category/Product/Product.jsx
+
+Descripción Funcional:
+  - Componente que representa producto individual dentro de categoría
+  - Implementa dos modos: viewing (solo lectura) y editing (edición inline)
+  - Muestra nombre y precio del producto
+  - Proporciona botones: Editar, Borrar
+  - En modo edición: inputs para nombre y precio, botones Guardar/Cancelar
+  - Usa Alert.alert para confirmación de eliminación
+  - Responsivo: stack vertical en móvil, row en desktop
+
+Objetivo Principal:
+  - Mostrar producto con acciones CRUD
+  - Permitir edición inline rápida
+  - Proporcionar confirmación de eliminación
+
+Estados:
+  - viewing: Nombre, Precio, Botones Editar/Borrar
+  - editing: InputName, InputPrecio, Botones Guardar/Cancelar
+
+Tipografía:
+  - Nombre: 13px móvil, 16px desktop
+  - Precio: 12px móvil, 14px desktop, color #666
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.5 páginas
+  - Estados y flujo: 0.5 páginas
+  - Responsive design: 0.5 páginas
+  - Código: 1.5 páginas
+  - Total estimado: 3 páginas
+
+================================================================================
+6. MÓDULO DE BOTONES: Conteiner/Buttons/
+================================================================================
+
+6.1. ButtonCategory.jsx
+────────────────────────────────────────────────────────────────────────────
+
+Ubicación: ./app/App/Conteiner/Buttons/ButtonCategory.jsx
+
+Descripción Funcional:
+  - Componente que agrupa botones de acción para categoría
+  - Proporciona 2 IconButtons: Editar y Borrar
+  - Botón Editar: Estilo normal (#8b4513)
+  - Botón Borrar: Estilo danger (transparente, #a0522d)
+  - Renderiza horizontalmente (flexDirection: row)
+
+Objetivo Principal:
+  - Centralizar botones de categoría en componente único
+  - Mantener consistencia de UI
+  - Facilitar mantenimiento
+
+Botones:
+  - Editar: IconButton normal
+  - Borrar: IconButton con prop danger=true
+
+Extensión Aproximada en PDF (APA):
+  - Descripción: 0.2 páginas
+  - Código: 0.3 páginas
+  - Total estimado: 0.5 páginas
+
+================================================================================
+7. PUNTO DE ENTRADA: app/index.tsx
+================================================================================
+
+Ubicación: ./app/index.tsx (no está en ./app/App, pero es crítico)
+
+Descripción Funcional:
+  - Archivo TypeScript que actúa como punto de entrada de la aplicación
+  - Envuelve componente App en GestureHandlerRootView
+  - GestureHandlerRootView es requerido por react-native-gesture-handler
+  - Aplica flex: 1 para ocupar toda la pantalla
+  - Resuelve error: "NativeViewGestureHandler must be descendant of GestureHandlerRootView"
+
+Objetivo Principal:
+  - Inicializar aplicación correctamente
+  - Resolver dependencias de gesture handler
+  - Garantizar que ScrollView funcione correctamente
+
+Estructura:
+  GestureHandlerRootView (flex: 1)
+    └── App component
+
+Extensión Aproximada en PDF (APA):
+  - Descripción del problema: 0.3 páginas
+  - Solución: 0.3 páginas
+  - Código: 0.2 páginas
+  - Total estimado: 0.8 páginas
+
+================================================================================
+RESUMEN ARQUITECTURAL
+================================================================================
+
+Patrón de Arquitectura: Component-Based Architecture (React)
+
+Flujo de Datos:
+  App.jsx (Estado Global)
+    ├── State: [categorias, setCategorias]
+    ├── Funciones CRUD: add/edit/delete
+    └── Props Drilling → Conteiner.jsx → Category.jsx → Product.jsx
+
+Niveles de Componentes:
+  1. Nivel 0 (Root): GestureHandlerRootView → App.jsx
+  2. Nivel 1 (Main): Conteiner.jsx (gestiona layout principal)
+  3. Nivel 2 (Sections): Header, Category, Footer, Spacer
+  4. Nivel 3 (Items): CategoryHeader, ProductList
+  5. Nivel 4 (Individual): Product, AddProductForm, ButtonCategory
+  6. Nivel 5 (Atomic): Button, FormInput, Spacer
+
+Separación de Responsabilidades:
+  - App.jsx: Lógica y estado global
+  - theme.js: Estilos y tema global
+  - Conteiner/: Organización de layout
+  - Category/: Lógica de categoría y productos
+  - components/: Componentes atómicos reutilizables
+
+Responsividad:
+  - Breakpoint: width < 600px → mobile
+  - Breakpoint: 600px < width < 900px → tablet
+  - Breakpoint: width > 900px → desktop
+  - Implementado mediante Dimensions.get('window')
+
+Total de Archivos: 14 archivos
+  - 1 archivo TypeScript (index.tsx)
+  - 1 archivo JavaScript tema (theme.js)
+  - 12 archivos JSX componentes
+
+================================================================================
+EXTENSIÓN ESTIMADA TOTAL PARA PDF (FORMATO APA)
+================================================================================
+
+Desglose por Sección:
+  - Portada y Resumen Ejecutivo: 1.5 páginas
+  - Introducción y Contexto: 1 página
+  - Descripción General de Arquitectura: 1.5 páginas
+  - Sistema de Temas (theme.js): 3.25 páginas
+  - Componente App.jsx: 2.25 páginas
+  - Biblioteca de Componentes (Button, FormInput): 3.6 páginas
+  - Contenedor Principal (Conteiner, Header, Footer, Spacer): 3.85 páginas
+  - Módulo de Categorías (Category, CategoryHeader, etc.): 7.35 páginas
+  - Módulo de Botones (ButtonCategory): 0.5 páginas
+  - Punto de Entrada (index.tsx): 0.8 páginas
+  - Flujos de Trabajo y Diagramas: 2 páginas
+  - Conclusiones y Recomendaciones: 1 página
+  - Apéndices (Código completo, referencias): 2 páginas
+
+TOTAL ESTIMADO: 30-35 páginas (Formato A4, APA, 12pt, single-space en código)
+
+Consideraciones:
+  - Si incluyes screenshots/mockups: +5-8 páginas
+  - Si incluyes diagramas UML: +3-4 páginas
+  - Si incluyes API documentation: +2-3 páginas
+  - Especificación técnica detallada: 25-27 páginas
+  - Con anexos y documentación: 30-35 páginas
+
+================================================================================
