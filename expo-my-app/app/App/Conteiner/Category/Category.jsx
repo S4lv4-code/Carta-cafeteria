@@ -3,6 +3,7 @@ import { View, Image, StyleSheet } from "react-native";
 import CategoryHeader from "./CategoryHeader";
 import AddProductForm from "./AddProductForm";
 import ProductList from "./ProductList";
+import ImageSelector from "./ImageSelector";
 import { categoryStyles } from "../../theme";
 
 export default function Category({
@@ -13,6 +14,12 @@ export default function Category({
   onEditProducto,
   onDeleteProducto,
 }) {
+  function handleImageChange(uri) {
+    // enviar objeto parcial para actualizar imagen
+    onEditCategoria(cat.id, { imagen: uri });
+  }
+
+
   return (
     <View style={categoryStyles.container}>
       <CategoryHeader
@@ -21,9 +28,7 @@ export default function Category({
         onDeleteCategoria={onDeleteCategoria}
       />
 
-      {cat.imagen ? (
-        <Image source={{ uri: cat.imagen }} style={categoryStyles.image} />
-      ) : null}
+      <ImageSelector initialImage={cat.imagen} onChange={handleImageChange} />
 
       <AddProductForm catId={cat.id} onAddProducto={onAddProducto} />
 

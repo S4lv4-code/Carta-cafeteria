@@ -92,18 +92,43 @@ export default function App() {
     }
   }
 
-  async function editCategoria(id, newName) {
-    const body = { usuario_id: USER_ID, nombre: newName, orden: 1 };
-    try {
-      const res = await fetch(`${API_BASE}/categorias/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      await fetchCategorias();
-    } catch (err) {
-      console.error("Error editCategoria:", err);
+  async function editCategoria(id, payload) {
+    // payload puede ser: string (nuevo nombre) o un objeto con campos parciales { imagen, location, ... }
+    if (typeof payload === "string") {
+      const body = { usuario_id: USER_ID, nombre: payload, orden: 1 };
+      try {
+        const res = await fetch(`${API_BASE}/categorias/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await fetchCategorias();
+      } catch (err) {
+        console.error("Error editCategoria:", err);
+      }
+      return;
+    }
+
+    // Si es un objeto, actualizamos el estado localmente. Intentamos enviar al servidor si es posible,
+    // pero como la API puede no soportar campos como 'imagen' o 'location', no fallamos si el PUT da error.
+    if (typeof payload === "object" && payload !== null) {
+      setCategorias((prev) => prev.map((c) => (c.id === id ? { ...c, ...payload } : c)));
+
+      // Intentar enviar cambios al servidor en segundo plano (no obligatorio)
+      try {
+        const body = { usuario_id: USER_ID, ...payload };
+        const res = await fetch(`${API_BASE}/categorias/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) {
+          console.warn(`Servidor no aceptó actualización parcial (HTTP ${res.status}). Los cambios se aplicaron localmente.`);
+        }
+      } catch (err) {
+        console.warn("No pude enviar la actualización parcial al servidor (solo estado local actualizado):", err.message);
+      }
     }
   }
 

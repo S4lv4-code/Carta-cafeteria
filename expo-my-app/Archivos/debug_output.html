@@ -1,62 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<style>
-  body {
-    font-family: "Times New Roman", serif;
-    margin: 2.5cm;
-    font-size: 12pt;
-    line-height: 1.5;
-  }
-  h1, h2, h3 { font-weight: bold; }
-  hr { margin: 30px 0; border: 0; border-top: 2px solid #444; }
-  pre {
-    background: #f5f5f5;
-    padding: 14px;
-    border-radius: 6px;
-    white-space: pre-wrap;
-    font-family: Consolas, monospace;
-    font-size: 10pt;
-  }
-  .titlepage {
-    text-align: center;
-    margin-top: 200px;
-  }
-</style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: "Times New Roman", serif;
+        margin: 2.5cm;
+        font-size: 12pt;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: bold;
+      }
+      hr {
+        margin: 30px 0;
+        border: 0;
+        border-top: 2px solid #444;
+      }
+      pre {
+        background: #f5f5f5;
+        padding: 14px;
+        border-radius: 6px;
+        white-space: pre-wrap;
+        font-family: Consolas, monospace;
+        font-size: 10pt;
+      }
+      .titlepage {
+        text-align: center;
+        margin-top: 200px;
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
+    <div class="titlepage">
+      <h1>CARTA CAFETERÍA – DOCUMENTACIÓN TÉCNICA</h1>
+      <p><b>Autor:</b> Salvatore De Rosa Vega</p>
+      <p><b>Curso:</b> 2-DAMN-B</p>
+      <p><b>Asignatura:</b> Programación Multimedia y Dispositivos Móviles</p>
+      <p><b>Centro:</b> IES El Rincón</p>
+      <p>
+        <b>Repositorio GitHub:</b>
+        <a href="https://github.com/S4lv4-code/Carta-cafeteria"
+          >https://github.com/S4lv4-code/Carta-cafeteria</a
+        >
+      </p>
+      <p>19/11/2025</p>
+    </div>
 
-<div class="titlepage">
-  <h1>CARTA CAFETERÍA – DOCUMENTACIÓN TÉCNICA</h1>
-  <p><b>Autor:</b> Salvatore De Rosa Vega</p>
-  <p><b>Curso:</b> 2-DAMN-B</p>
-  <p><b>Asignatura:</b> Programación Multimedia y Dispositivos Móviles</p>
-  <p><b>Centro:</b> IES El Rincón</p>
-  <p><b>Repositorio GitHub:</b>  
-    <a href="https://github.com/S4lv4-code/Carta-cafeteria">https://github.com/S4lv4-code/Carta-cafeteria</a>
-  </p>
-  <p>19/11/2025</p>
-</div>
+    <hr />
 
-<hr>
+    <h2>1. Arquitectura general</h2>
+    <p>
+      Descripción completa tomada del análisis subido. Se explica cómo App.jsx
+      coordina el flujo de categorías y productos. Se detalla el patrón
+      jerárquico desde index.tsx → App.jsx → Conteiner.jsx → Category.jsx →
+      Product.jsx.
+    </p>
 
-<h2>1. Arquitectura general</h2>
-<p>Descripción completa tomada del análisis subido. Se explica cómo App.jsx coordina el flujo
-de categorías y productos. Se detalla el patrón jerárquico desde index.tsx → App.jsx → Conteiner.jsx
-→ Category.jsx → Product.jsx.</p>
+    <hr />
 
-<hr>
-
-<h2>2. Código relevante – App.jsx</h2>
-<p>Controla el estado global de categorías y productos.</p>
-<p>Realiza llamadas a la API para fetch, crear, editar y eliminar
-  tanto categorías como productos.</p>
-<p>Pasa las funciones CRUD a Conteiner.jsx.</p>
-<p>Implementa efectos con useEffect para cargar datos al iniciar 
-  la app y registrar cambios en consola.</p>
-<pre>
+    <h2>2. Código relevante – App.jsx</h2>
+    <p>Controla el estado global de categorías y productos.</p>
+    <p>
+      Realiza llamadas a la API para fetch, crear, editar y eliminar tanto
+      categorías como productos.
+    </p>
+    <p>Pasa las funciones CRUD a Conteiner.jsx.</p>
+    <p>
+      Implementa efectos con useEffect para cargar datos al iniciar la app y
+      registrar cambios en consola.
+    </p>
+    <pre>
 import React, { useState, useEffect } from &quot;react&quot;;
 import { ScrollView, ImageBackground, View } from &quot;react-native&quot;;
 import Conteiner from &quot;./Conteiner/Conteiner&quot;;
@@ -266,15 +283,19 @@ export default function App() {
     &lt;/ImageBackground&gt;
   );
 }
-</pre>
+</pre
+    >
 
-<hr>
+    <hr />
 
-<h2>3. Conteiner.jsx – Estructura principal</h2>
-<p>Contenedor principal que organiza la interfaz.</p>
-<p>Permite agregar nuevas categorías y renderiza todas las categorías existentes.</p>
-<p>Recibe las funciones CRUD desde App.jsx y las pasa a Category.jsx.</p>
-<pre>
+    <h2>3. Conteiner.jsx – Estructura principal</h2>
+    <p>Contenedor principal que organiza la interfaz.</p>
+    <p>
+      Permite agregar nuevas categorías y renderiza todas las categorías
+      existentes.
+    </p>
+    <p>Recibe las funciones CRUD desde App.jsx y las pasa a Category.jsx.</p>
+    <pre>
 import React, { useState } from &quot;react&quot;;
 import { View, StyleSheet } from &quot;react-native&quot;;
 import Header from &quot;./Header/Header&quot;;
@@ -350,20 +371,25 @@ const styles = StyleSheet.create({
   container: { width: &#39;100%&#39;, alignItems: &#39;center&#39; },
   addSection: { alignItems: &#39;center&#39;, width: &#39;100%&#39;, marginVertical: spacing.md, gap: spacing.sm },
 });
-</pre>
+</pre
+    >
 
-<hr>
+    <hr />
 
-<h2>4. Category.jsx + CategoryHeader.jsx</h2>
+    <h2>4. Category.jsx + CategoryHeader.jsx</h2>
 
-<p>Representa una categoría individual.</p>
-<p>Muestra el header de la categoría, la imagen (opcional),
-  formulario de agregar productos y la lista de productos (ProductList).</p>
-<p>Pasa funciones CRUD de productos a los componentes hijos.</p>
-<p>CategoryHeader: muestra nombre de la categoría y 
-  botones de edición/eliminación.</p>
+    <p>Representa una categoría individual.</p>
+    <p>
+      Muestra el header de la categoría, la imagen (opcional), formulario de
+      agregar productos y la lista de productos (ProductList).
+    </p>
+    <p>Pasa funciones CRUD de productos a los componentes hijos.</p>
+    <p>
+      CategoryHeader: muestra nombre de la categoría y botones de
+      edición/eliminación.
+    </p>
 
-<pre>
+    <pre>
 import React from &quot;react&quot;;
 import { View, Image, StyleSheet } from &quot;react-native&quot;;
 import CategoryHeader from &quot;./CategoryHeader&quot;;
@@ -402,16 +428,18 @@ export default function Category({
     &lt;/View&gt;
   );
 }
-</pre>
+</pre
+    >
 
-<hr>
+    <hr />
 
-<h2>5. Product.jsx – CRUD de productos</h2>
-<p>Representa un producto individual.</p>
-<p>Permite visualizar, editar inline y eliminar un 
-  producto con confirmación.</p>
-<p>Adaptado para pantallas móviles y escritorio.</p>
-<pre>
+    <h2>5. Product.jsx – CRUD de productos</h2>
+    <p>Representa un producto individual.</p>
+    <p>
+      Permite visualizar, editar inline y eliminar un producto con confirmación.
+    </p>
+    <p>Adaptado para pantallas móviles y escritorio.</p>
+    <pre>
 import React, { useState } from &quot;react&quot;;
 import { View, Text, Alert, StyleSheet, Dimensions } from &quot;react-native&quot;;
 import { FormInput } from &quot;../../../components/FormInput&quot;;
@@ -504,15 +532,18 @@ const styles = StyleSheet.create({
   editRow: { flexDirection: &#39;column&#39;, alignItems: &#39;center&#39;, width: &#39;100%&#39;, gap: spacing.sm },
   input: { width: &#39;100%&#39;, borderWidth: 1, borderColor: &#39;#ccc&#39;, padding: 6, borderRadius: 6, marginBottom: 8, backgroundColor: &#39;#fff&#39; },
 });
-</pre>
+</pre
+    >
 
-<hr>
+    <hr />
 
-<h2>6. Componentes reutilizables</h2>
-<p>Botones y formularios estandarizados para mantener 
-  consistencia visual y facilitar la reutilización.</p>
-  <p>Manejan propiedades como danger, activeOpacity y estilos responsivos.</p>
-<pre>
+    <h2>6. Componentes reutilizables</h2>
+    <p>
+      Botones y formularios estandarizados para mantener consistencia visual y
+      facilitar la reutilización.
+    </p>
+    <p>Manejan propiedades como danger, activeOpacity y estilos responsivos.</p>
+    <pre>
 import React from &#39;react&#39;;
 import { TouchableOpacity, Text, StyleSheet, Dimensions } from &#39;react-native&#39;;
 import { colors, spacing } from &#39;../theme&#39;;
@@ -563,19 +594,25 @@ export function SmallButton({ onPress, children, style }) {
   );
 }
 
-</pre>
+</pre
+    >
 
-<hr>
+    <hr />
 
-<h2>7. Resumen final</h2>
-<p>El proyecto “Carta Cafetería” es una aplicación móvil desarrollada con React 
-  Native que permite gestionar categorías y productos de una cafetería de manera 
-  dinámica. Cuenta con un sistema completo de CRUD para categorías y productos, 
-  interfaz responsiva para distintos tamaños de pantalla y componentes reutilizables
-  que garantizan consistencia y escalabilidad. La arquitectura modular facilita 
-  la expansión futura y la integración con APIs externas, mientras que la 
-  normalización de datos y el manejo de errores aseguran robustez y estabilidad.</p>
-  <img src="/expo-my-app/assets/Captura de pantalla 2025-11-19 120406.png" 
-  alt="Captura de pantalla de la aplicación Carta Cafetería">
-</body>
+    <h2>7. Resumen final</h2>
+    <p>
+      El proyecto “Carta Cafetería” es una aplicación móvil desarrollada con
+      React Native que permite gestionar categorías y productos de una cafetería
+      de manera dinámica. Cuenta con un sistema completo de CRUD para categorías
+      y productos, interfaz responsiva para distintos tamaños de pantalla y
+      componentes reutilizables que garantizan consistencia y escalabilidad. La
+      arquitectura modular facilita la expansión futura y la integración con
+      APIs externas, mientras que la normalización de datos y el manejo de
+      errores aseguran robustez y estabilidad.
+    </p>
+    <img
+      src="/expo-my-app/assets/Captura de pantalla 2025-11-19 120406.png"
+      alt="Captura de pantalla de la aplicación Carta Cafetería"
+    />
+  </body>
 </html>
